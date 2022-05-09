@@ -5,13 +5,19 @@ shortcodes:
   - tweet.lua
 ---
 
-Example of fallback
+Example 1
 
-{{< tweet id=1476963510357737482 >}} 
+{{< tweet id=1476963510357737482 maxwidth=1000 hide_media=true >}} 
 
-Copy-paste of hardcoded twitter HTML
+Example 2
 
-{{< hardcode id=1476963510357737482 >}} 
+{{< tweet id=1516534734955991050 hide_thread=true >}} 
 
-oembed(url, maxwidth, hide_media, hide_thread, omit_script, align, related, lang, theme, linkcolor, widget_type, dnt)
+Example 3
+
+{{< tweet id=1516534734955991050 theme=dark >}} 
+
+Example of bad tweet id
+
+{{< tweet id=9999999999888888888 >}} 
 
