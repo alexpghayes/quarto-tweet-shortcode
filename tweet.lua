@@ -1,17 +1,35 @@
+function fallback(url)
+
+  local open_bquote = '<blockquote class="twitter-tweet">\n'
+  local href = '<a href="' .. url .. '"></a>\n'
+  local close_bquote = '</blockquote>\n'
+  local js = '<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>\n'
+  
+  local html = open_bquote .. href .. close_bquote .. js
+  return pandoc.RawBlock('html', html)
+  
+end
+
 return {
   ["tweet"] = function(args, kwargs)
     
     local id = pandoc.utils.stringify(kwargs["id"])
     
-    local open_bquote = '<blockquote class="twitter-tweet">'
-    local href = '<a href="https://twitter.com/x/status/' .. id .. '"></a> '
-    local close_bquote = '</blockquote>'
+    local url = 'https://twitter.com/x/status/' .. id
     
-    local js = '<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>'
+    local request = 'https://publish.twitter.com/oembed?url=' .. url
     
-    local html = open_bquote .. '\n' .. href .. '\n' .. close_bquote .. '\n'.. js
     
-    return pandoc.RawBlock('html', html)
+    local mime_type, contents = pandoc.mediabag.fetch(request)
+    
+      
+    -- if the http request fails, use the fallback option
+    if mime_type ~= nil then
+      return fallback(url)
+    end
+      
+    print(contents)
+    return pandoc.RawBlock('html', contents)
   end,
   
   ["hardcode"] = function(args, kwargs)

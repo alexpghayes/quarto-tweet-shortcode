@@ -13,3 +13,5 @@ Copy-paste of hardcoded twitter HTML
 
 {{< hardcode id=1476963510357737482 >}} 
 
+oembed(url, maxwidth, hide_media, hide_thread, omit_script, align, related, lang, theme, linkcolor, widget_type, dnt)
+
